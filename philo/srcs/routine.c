@@ -54,8 +54,10 @@ void    philo_eat(t_philo *philo)
     print_status(philo, 1);
     
     if (get_value(&philo->param->lock, &philo->param->end) == 1)
+    {
+         pthread_mutex_unlock(&philo->fork_one->lock);
         return ;
-
+    }
     pthread_mutex_lock(&philo->fork_two->lock);
     print_status(philo, 1);
 

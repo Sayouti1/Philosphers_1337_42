@@ -93,7 +93,6 @@ void    *routine(void *arg)
 
     while (get_value(&philo->param->lock, &philo->param->all_ready) == 0)
     ;
-    usleep(100);
     while (1)
     {
         philo_eat(philo);
@@ -127,8 +126,8 @@ void    init_philos(t_param *param)
         pthread_create(&param->philo[i].thread, NULL, routine, &param->philo[i]);
         ++i;
     }
-    set_value(&param->lock, &param->all_ready, 1);
     set_lvalue(&param->lock, &param->start_time, timestamp_in('m'));
+    set_value(&param->lock, &param->all_ready, 1);
     i = 0;
     while (i < param->num_philos)
         pthread_join(param->philo[i++].thread, NULL);
@@ -136,13 +135,23 @@ void    init_philos(t_param *param)
 
 int main(int ac, char **av)
 {
-    t_param    param;
+    t_param     param;
+    int         i;
 
     if (ac != 5 && ac != 6)
         return (1);
     if (init_param(ac, av, &param))
         return (printf("init_param\n"), 1);
     init_philos(&param);
+    pthread_mutex_destroy(&param.lock);
+    pthread_mutex_destroy(&param.print_lock);
+    i = 0;
+    while (i < param.num_philos)
+    {
+        pthread_mutex_destroy(&param.philo[i].fork_one->lock);
+        pthread_mutex_destroy(&param.philo[i].fork_two->lock);
+        pthread_mutex_destroy(&param.philo[i++].lock);
+    }
     free(param.fork);
     free(param.philo);
     return (0);

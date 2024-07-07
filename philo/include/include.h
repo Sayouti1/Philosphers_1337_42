@@ -44,6 +44,8 @@ typedef struct s_param
     t_fork              *fork;
     pthread_mutex_t     lock;
     pthread_mutex_t     print_lock;
+    pthread_mutex_t     monitor_lock;
+    pthread_t           monitor;
 
 }                t_param;
 
