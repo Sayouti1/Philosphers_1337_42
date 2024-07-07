@@ -37,8 +37,8 @@ void    *routine(void *arg)
 
     while (get_value(&philo->param->lock, &philo->param->all_ready) == 0)
     ;
-    if (philo->id % 2 != 0)
-		sleep_for(philo->param->time_eat, philo);
+    // if (philo->id % 2 != 0)
+	// 	sleep_for(philo->param->time_eat - 60, philo);
     while (1)
     {
         philo_eat(philo);
@@ -58,22 +58,22 @@ void    *routine(void *arg)
 int main(int ac, char **av)
 {
     t_param     param;
-    int         i;
+    // int         i;
 
     if (ac != 5 && ac != 6)
         return (1);
     if (init_param(ac, av, &param))
         return (printf("init_param\n"), 1);
     init_philos(&param);
-    pthread_mutex_destroy(&param.lock);
-    pthread_mutex_destroy(&param.print_lock);
-    i = 0;
-    while (i < param.num_philos)
-    {
-        pthread_mutex_destroy(&param.philo[i].fork_one->lock);
-        pthread_mutex_destroy(&param.philo[i].fork_two->lock);
-        pthread_mutex_destroy(&param.philo[i++].lock);
-    }
+    // pthread_mutex_destroy(&param.lock);
+    // pthread_mutex_destroy(&param.print_lock);
+    // i = 0;
+    // while (i < param.num_philos)
+    // {
+    //     pthread_mutex_destroy(&param.philo[i].fork_one->lock);
+    //     pthread_mutex_destroy(&param.philo[i].fork_two->lock);
+    //     pthread_mutex_destroy(&param.philo[i++].lock);
+    // }
     free(param.fork);
     free(param.philo);
     return (0);

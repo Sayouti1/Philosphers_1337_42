@@ -35,8 +35,6 @@ void    sleep_for(long ms, t_philo *philo)
         (void)philo;
         while (timestamp_in('u') - start < ms)
         {
-                // if (philo_died(philo))
-                //         return ;
                 elapsed = timestamp_in('u') - start;
                 rem = ms - elapsed;
                 if (rem > 1000)
@@ -46,23 +44,6 @@ void    sleep_for(long ms, t_philo *philo)
                     ;
         }
 }
-
-// void	sleep_for(long ms, t_philo *philo)
-// {
-// 	long int	start_time;
-
-// 	start_time = 0;
-// 	start_time = timestamp_in('m');
-//     (void)philo;
-// 	while ((timestamp_in('m') - start_time) < ms)
-// 	{
-//         // if (philo_died(philo))
-//         //     return ;
-//         usleep(100);
-//         // if (get_value(&philo->param->lock, &philo->param->end))
-//         //     return ;
-//     }
-// }
 
 void    philo_eat(t_philo *philo)
 {
@@ -78,13 +59,14 @@ void    philo_eat(t_philo *philo)
     print_status(philo, 1);
 
     print_status(philo, 2);
+    pthread_mutex_lock(&philo->lock);
+    philo->meal_count++;
+    pthread_mutex_unlock(&philo->lock);
     set_lvalue(&philo->lock, &philo->last_eat, timestamp_in('m'));
     sleep_for(philo->param->time_eat, philo);
     pthread_mutex_unlock(&philo->fork_one->lock);
     pthread_mutex_unlock(&philo->fork_two->lock);
-    pthread_mutex_lock(&philo->lock);
-    philo->meal_count++;
-    pthread_mutex_unlock(&philo->lock);
+   
 }
 
 void    philo_sleep(t_philo *philo)
