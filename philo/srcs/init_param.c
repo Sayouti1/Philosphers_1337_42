@@ -9,6 +9,7 @@ void    *ft_monitor(void *arg)
     param = (t_param *)arg;
     while (get_value(&param->lock, &param->all_ready) == 0)
         ;
+    sleep_for(get_lvalue(&param->lock, &param->time_die),  NULL);
     j = get_value(&param->lock, &param->num_philos);
     while (!get_value(&param->lock, &param->end))
     {

@@ -44,25 +44,43 @@ long    timestamp_in(char c)
     return (ret);
 }
 
+// int philo_died(t_philo *philo)
+// {
+//     if (get_value(&philo->lock, &philo->meal_count) == 0)
+//     {
+//         if ((timestamp_in('m') - get_lvalue(&philo->param->lock, &philo->param->start_time))
+//             >= philo->param->time_die)
+//         {
+//             print_status(philo, 0);
+//             return (1);
+//         }
+//     }
+//     else
+//     {
+//         if ((timestamp_in('m') - get_lvalue(&philo->lock, &philo->last_eat)) >= philo->param->time_die)
+//         {
+//             print_status(philo, 0);
+//             return (1);
+//         }
+//     }
+//     return (0);
+// }
+
 int philo_died(t_philo *philo)
 {
-    // if (philo->meal_count == 0)
     if (get_value(&philo->lock, &philo->meal_count) == 0)
     {
         if ((timestamp_in('m') - get_lvalue(&philo->param->lock, &philo->param->start_time))
             >= philo->param->time_die)
         {
-            printf("time passed %ld\n", timestamp_in('m') - get_lvalue(&philo->param->lock, &philo->param->start_time));
             print_status(philo, 0);
             return (1);
         }
     }
     else
     {
-        // if (timestamp_in('m') - philo->last_eat >= philo->param->time_die)
         if ((timestamp_in('m') - get_lvalue(&philo->lock, &philo->last_eat)) >= philo->param->time_die)
         {
-            printf("time passed %d\n", timestamp_in('m') - get_lvalue(&philo->lock, &philo->last_eat) >= philo->param->time_die);
             print_status(philo, 0);
             return (1);
         }
