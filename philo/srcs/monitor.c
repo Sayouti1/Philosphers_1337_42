@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aes-sayo <aes-sayo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/06 09:17:39 by aes-sayo          #+#    #+#             */
-/*   Updated: 2024/07/07 22:05:07 by aes-sayo         ###   ########.fr       */
+/*   Created: 2024/07/07 22:05:12 by aes-sayo          #+#    #+#             */
+/*   Updated: 2024/07/07 22:05:15 by aes-sayo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/include.h"
 
-int	main(int ac, char **av)
+void	*ft_monitor(void *arg)
 {
-	t_param	param;
+	t_param	*param;
+	int		i;
+	int		j;
 
-	if (ac != 5 && ac != 6)
-		return (1);
-	if (init_param(ac, av, &param))
-		return (printf("init_param\n"), 1);
-	init_philos(&param);
-	free(param.fork);
-	free(param.philo);
-	return (0);
+	param = (t_param *)arg;
+	while (get_value(&param->lock, &param->all_ready) == 0)
+		;
+	sleep_for(get_lvalue(&param->lock, &param->time_die), NULL);
+	j = get_value(&param->lock, &param->num_philos);
+	while (!get_value(&param->lock, &param->end))
+	{
+		i = 0;
+		while (i < j)
+		{
+			if (philo_died(&param->philo[i++]))
+				break ;
+		}
+	}
+	return (NULL);
 }
