@@ -57,10 +57,17 @@ void    set_value(pthread_mutex_t *lock, int *var, int val);
 long    timestamp_in(char c);
 void    sleep_for(long ms, t_philo *philo);
 void    print_status(t_philo *philo, int status);
-void    sleep_for(long ms, t_philo *philo);
 void    philo_eat(t_philo *philo);
 void    philo_sleep(t_philo *philo);
 void    philo_think(t_philo *philo);
 int     philo_died(t_philo *philo);
+void    init_philos(t_param *param);
+int     init_philo_val(t_param *param, int i);
+int     init_param(int ac, char **av, t_param *param);
+int     ft_strlen(char *s);
+int     ft_isspace(char c);
+void    *routine(void *arg);
+void    *ft_monitor(void *arg);
+int     init_fork(t_param *param, int i);
 
 #endif

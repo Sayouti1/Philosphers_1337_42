@@ -46,7 +46,8 @@ long    timestamp_in(char c)
 
 int philo_died(t_philo *philo)
 {
-    if (philo->meal_count == 0)
+    // if (philo->meal_count == 0)
+    if (get_value(&philo->lock, &philo->meal_count) == 0)
     {
         if ((timestamp_in('m') - get_lvalue(&philo->param->lock, &philo->param->start_time))
             >= philo->param->time_die)
@@ -57,7 +58,8 @@ int philo_died(t_philo *philo)
     }
     else
     {
-        if (timestamp_in('m') - philo->last_eat >= philo->param->time_die)
+        // if (timestamp_in('m') - philo->last_eat >= philo->param->time_die)
+        if (timestamp_in('m') - get_lvalue(&philo->lock, &philo->last_eat) >= philo->param->time_die)
         {
             print_status(philo, 0);
             return (1);

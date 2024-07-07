@@ -26,27 +26,43 @@ void print_status(t_philo *philo, int status)
 
 void    sleep_for(long ms, t_philo *philo)
 {
-        long    now;
+        long    start;
         long    elapsed;
         long    rem;
 
-        now = timestamp_in('u');
+        start = timestamp_in('u');
         ms *= 1000;
-        if (philo_died(philo))
-            return ;
-        while (timestamp_in('u') - now < ms)
+        (void)philo;
+        while (timestamp_in('u') - start < ms)
         {
-                if (philo_died(philo))
-                        return ;
-                elapsed = timestamp_in('u') - now;
+                // if (philo_died(philo))
+                //         return ;
+                elapsed = timestamp_in('u') - start;
                 rem = ms - elapsed;
                 if (rem > 1000)
-                        usleep((rem) / 2);
-                if (get_value(&philo->param->lock, &philo->param->end))
-                        return ;
+                        usleep(rem / 3);
+                else
+                    while (timestamp_in('u') - start < ms)
+                    ;
         }
 }
 
+// void	sleep_for(long ms, t_philo *philo)
+// {
+// 	long int	start_time;
+
+// 	start_time = 0;
+// 	start_time = timestamp_in('m');
+//     (void)philo;
+// 	while ((timestamp_in('m') - start_time) < ms)
+// 	{
+//         // if (philo_died(philo))
+//         //     return ;
+//         usleep(100);
+//         // if (get_value(&philo->param->lock, &philo->param->end))
+//         //     return ;
+//     }
+// }
 
 void    philo_eat(t_philo *philo)
 {
@@ -66,7 +82,9 @@ void    philo_eat(t_philo *philo)
     sleep_for(philo->param->time_eat, philo);
     pthread_mutex_unlock(&philo->fork_one->lock);
     pthread_mutex_unlock(&philo->fork_two->lock);
+    pthread_mutex_lock(&philo->lock);
     philo->meal_count++;
+    pthread_mutex_unlock(&philo->lock);
 }
 
 void    philo_sleep(t_philo *philo)
