@@ -59,11 +59,14 @@ void    philo_eat(t_philo *philo)
     print_status(philo, 1);
 
     print_status(philo, 2);
+    set_lvalue(&philo->lock, &philo->last_eat, timestamp_in('m'));
+
     pthread_mutex_lock(&philo->lock);
     philo->meal_count++;
     pthread_mutex_unlock(&philo->lock);
-    set_lvalue(&philo->lock, &philo->last_eat, timestamp_in('m'));
+    
     sleep_for(philo->param->time_eat, philo);
+    
     pthread_mutex_unlock(&philo->fork_one->lock);
     pthread_mutex_unlock(&philo->fork_two->lock);
    
