@@ -79,9 +79,6 @@ int	init_param(int ac, char **av, t_param *param)
 	param->time_eat = ft_atol(av[3]);
 	param->time_sleep = ft_atol(av[4]);
 	param->limit_meals = -1;
-	param->all_ready = 0;
-	param->end = 0;
-	param->exit = 0;
 	if (ac == 6)
 		param->limit_meals = ft_atol(av[5]);
 	if (pthread_mutex_init(&param->lock, NULL))

@@ -18,6 +18,9 @@ int	main(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 		return (1);
+	param.all_ready = 0;
+	param.end = 0;
+	param.exit = 0;
 	if (init_param(ac, av, &param))
 		return (printf("init_param\n"), 1);
 	init_philos(&param);
