@@ -33,6 +33,7 @@ void	*ft_monitor(void *arg)
 		{
 			if (philo_died(&param->philo[i++]))
 				return (NULL);
+			usleep(100);
 		}
 	}
 	return (NULL);

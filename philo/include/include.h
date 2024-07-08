@@ -50,6 +50,7 @@ typedef struct s_param
 	long			start_time;
 	int				all_ready;//
 	int				end;//
+	int				exit;
 	t_philo			*philo;//
 	t_fork			*fork;//
 	pthread_mutex_t	lock;//
@@ -70,7 +71,8 @@ int					init_param(int ac, char **av, t_param *param);
 
 void				*ft_monitor(void *arg);
 
-void				print_status(t_philo *philo, char *str);
+// void				print_status(t_philo *philo, char *str);
+void    			print_status(long ms, t_philo *philo, char *str, int status);
 void				philo_eat(t_philo *philo);
 void				philo_sleep(t_philo *philo);
 void				*routine(void *arg);
