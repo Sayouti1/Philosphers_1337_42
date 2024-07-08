@@ -58,7 +58,6 @@ int	init_philo_val(t_param *param, int i)
 	param->philo[i].last_eat = 0;
 	param->philo[i].meal_count = 0;
 	param->philo[i].is_full = 0;
-	param->philo[i].is_dead = 0;
 	if (pthread_mutex_init(&param->philo[i].lock, NULL))
 		return (printf("init philo mutex\n"), 1);
 	param->philo[i].param = param;
@@ -86,16 +85,14 @@ int	init_param(int ac, char **av, t_param *param)
 	param->limit_meals = -1;
 	if (ac == 6)
 		param->limit_meals = ft_atol(av[5]);
-	if (pthread_mutex_init(&param->lock, NULL))
-		return (1);
+	if (pthread_mutex_init(&param->lock, NULL)
+		|| pthread_mutex_init(&param->print_lock, NULL))
+		// || pthread_mutex_init(&param->monitor_lock, NULL)
+		return (printf("mutex init print lock"), 1);
 	param->philo = (t_philo *)malloc((param->num_philos) * sizeof(t_philo));
 	param->fork = (t_fork *)malloc((param->num_philos) * sizeof(t_fork));
 	if (!param->fork || !param->philo)
 		return (printf("if (!param->fork || !param->philo)\n"),
 			free(param->fork), free(param->philo), 1);
-	if (pthread_mutex_init(&param->lock, NULL)
-		|| pthread_mutex_init(&param->print_lock, NULL))
-		// || pthread_mutex_init(&param->monitor_lock, NULL)
-		return (printf("mutex init print lock"), 1);
 	return (0);
 }

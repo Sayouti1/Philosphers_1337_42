@@ -66,7 +66,7 @@ int	philo_died(t_philo *philo)
 	time_passed = timestamp_in('m') - get_lvalue(&philo->lock, &philo->last_eat);
 	if (time_passed > philo->param->time_die)
 	{
-		print_status(philo, "is died");
+		print_status(philo, "\033[1;31mis died\033[0m");
 		set_value(&philo->param->lock, &philo->param->end, 1);
 		return (1);
 	}

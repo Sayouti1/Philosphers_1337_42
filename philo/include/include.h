@@ -34,7 +34,6 @@ typedef struct s_philo
 	long			last_eat;
 	int				meal_count;
 	int				is_full;
-	int				is_dead;
 	t_fork			*fork_one;
 	t_fork			*fork_two;
 	pthread_mutex_t	lock;
@@ -43,19 +42,18 @@ typedef struct s_philo
 
 typedef struct s_param
 {
-	int				num_philos;
-	long			time_die;
-	long			time_eat;
-	long			time_sleep;
-	int				limit_meals;
+	int				num_philos;//
+	long			time_die;//
+	long			time_eat;//
+	long			time_sleep;//
+	int				limit_meals;//
 	long			start_time;
-	int				all_ready;
-	int				end;
-	int				exit;
-	t_philo			*philo;
-	t_fork			*fork;
-	pthread_mutex_t	lock;
-	pthread_mutex_t	print_lock;
+	int				all_ready;//
+	int				end;//
+	t_philo			*philo;//
+	t_fork			*fork;//
+	pthread_mutex_t	lock;//
+	pthread_mutex_t	print_lock;//
 	pthread_t		monitor;
 
 }					t_param;
