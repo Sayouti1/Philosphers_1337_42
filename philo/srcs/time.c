@@ -23,10 +23,11 @@ void	sleep_for(long ms, t_philo *philo)
 	(void)philo;
 	while (timestamp_in('u') - start < ms)
 	{
+		usleep(100);
 		elapsed = timestamp_in('u') - start;
 		rem = ms - elapsed;
 		if (rem > 1000)
-			usleep(rem / 3);
+			usleep(rem / 2);
 		else
 			while (timestamp_in('u') - start < ms)
 				;

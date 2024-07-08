@@ -31,11 +31,16 @@ void	init_philos(t_param *param)
 		++i;
 	}
 	pthread_create(&param->monitor, NULL, ft_monitor, param);
+
 	set_lvalue(&param->lock, &param->start_time, timestamp_in('m'));
+
 	set_value(&param->lock, &param->all_ready, 1);
+
 	i = 0;
 	while (i < param->num_philos)
 		pthread_join(param->philo[i++].thread, NULL);
+	
+	set_value(&param->lock, &param->end, 1);
 	pthread_join(param->monitor, NULL);
 }
 
@@ -89,8 +94,8 @@ int	init_param(int ac, char **av, t_param *param)
 		return (printf("if (!param->fork || !param->philo)\n"),
 			free(param->fork), free(param->philo), 1);
 	if (pthread_mutex_init(&param->lock, NULL)
-		|| pthread_mutex_init(&param->print_lock, NULL)
-		|| pthread_mutex_init(&param->monitor_lock, NULL))
+		|| pthread_mutex_init(&param->print_lock, NULL))
+		// || pthread_mutex_init(&param->monitor_lock, NULL)
 		return (printf("mutex init print lock"), 1);
 	return (0);
 }

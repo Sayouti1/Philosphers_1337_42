@@ -20,17 +20,20 @@ void	*ft_monitor(void *arg)
 
 	param = (t_param *)arg;
 	while (get_value(&param->lock, &param->all_ready) == 0)
-		;
-	sleep_for(get_lvalue(&param->lock, &param->time_die), NULL);
-	j = get_value(&param->lock, &param->num_philos);
-	while (!get_value(&param->lock, &param->end))
+		usleep(100);
+	usleep(param->time_die * 1000);
+
+	j = param->num_philos;
+	i = 0;
+	while (get_value(&param->lock, &param->end) == 0)
 	{
 		i = 0;
 		while (i < j)
 		{
 			if (philo_died(&param->philo[i++]))
-				break ;
+				return (NULL);
 		}
+		usleep(1000);
 	}
 	return (NULL);
 }

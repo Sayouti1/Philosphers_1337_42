@@ -8,6 +8,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	clear
 
 ####./philo [nb_philos] [to_die] [to_eat] [to_sleep] -[nb_must_eat]-
 test: all
