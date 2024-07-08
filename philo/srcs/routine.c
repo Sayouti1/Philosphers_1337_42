@@ -56,8 +56,6 @@ void    print_status(long ms, t_philo *philo, char *str, int status)
 
 void	philo_eat(t_philo *philo)
 {
-	// if (philo->id == philo->param->num_philos)
-	// 	usleep(2000);
 	pthread_mutex_lock(&philo->fork_one->lock);
 	print_status(0, philo, "has taken a fork", 1);
 	pthread_mutex_lock(&philo->fork_two->lock);
@@ -106,7 +104,7 @@ void	*routine(void *arg)
 		philo_sleep(philo);
 		print_status(0, philo, "is thinking", 1);
 		if (philo->param->num_philos % 2)
-			sleep_for(60 , philo);
+			sleep_for(10 , philo);
 		if (philo->param->limit_meals != -1 && get_value(&philo->lock, &philo->is_full))
 			break ;
 	}
