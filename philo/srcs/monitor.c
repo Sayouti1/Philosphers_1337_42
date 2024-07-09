@@ -19,10 +19,11 @@ void	*ft_monitor(void *arg)
 	int		j;
 
 	param = (t_param *)arg;
+	if (param->num_philos == 1)
+		return (NULL);
 	while (get_value(&param->lock, &param->all_ready) == 0)
 		usleep(100);
 	usleep(param->time_die * 1000);
-
 	j = param->num_philos;
 	i = 0;
 	while (get_value(&param->lock, &param->end) == 0)

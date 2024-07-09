@@ -59,14 +59,14 @@ long	ft_atol(char *str)
 
 int	philo_died(t_philo *philo)
 {
-	long time_passed;
+	long	time_passed;
 
 	if (get_value(&philo->lock, &philo->is_full) == 1)
 		return (0);
-	time_passed = timestamp_in('m') - get_lvalue(&philo->lock, &philo->last_eat);
-	if (time_passed > philo->param->time_die)
+	time_passed = timestamp_in('m') - get_lvalue(&philo->lock,
+			&philo->last_eat);
+	if (time_passed >= philo->param->time_die)
 	{
-		// set_value(&philo->param->lock, &philo->param->end, 1);
 		print_status(0, philo, "\033[1;31mis died\033[0m", 0);
 		return (1);
 	}

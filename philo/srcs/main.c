@@ -12,6 +12,16 @@
 
 #include "../include/include.h"
 
+void	*one_philo(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->fork_one->lock);
+	print_status(0, philo, "has taken a fork", 1);
+	sleep_for(philo->param->time_die);
+	pthread_mutex_unlock(&philo->fork_one->lock);
+	print_status(0, philo, "\033[1;31mis died\033[0m", 0);
+	return (NULL);
+}
+
 int	main(int ac, char **av)
 {
 	t_param	param;
@@ -22,7 +32,7 @@ int	main(int ac, char **av)
 	param.end = 0;
 	param.exit = 0;
 	if (init_param(ac, av, &param))
-		return (printf("init_param\n"), 1);
+		return (1);
 	init_philos(&param);
 	free(param.fork);
 	free(param.philo);
