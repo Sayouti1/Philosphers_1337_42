@@ -15,22 +15,13 @@
 void	sleep_for(long ms)
 {
 	long	start;
-	// long	elapsed;
-	// long	rem;
 
 	start = timestamp_in('u');
 	ms *= 1000;
+	if (ms > 1000)
+		usleep(ms - 1000);
 	while (timestamp_in('u') - start < ms)
-	{
-		usleep(1000);
-		// elapsed = timestamp_in('u') - start;
-		// rem = ms - elapsed;
-		// if (rem > 1000)
-		// 	usleep(rem / 2);
-		// else
-		// 	while (timestamp_in('u') - start < ms)
-		// 		;
-	}
+		;
 }
 
 long	timestamp_in(char c)
