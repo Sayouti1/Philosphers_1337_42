@@ -20,7 +20,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-
+	@clear
+	@echo "\033[1m\033[32m./philo created successfully :) \033[0m"
 clean :
 	@rm -f $(OBJS)
 	@rm -f test

@@ -51,7 +51,7 @@ int	philo_died(t_philo *philo)
 			&philo->last_eat);
 	if (time_passed > philo->param->time_die)
 	{
-		print_status(0, philo, "died", 0);
+		print_status(0, philo, "\033[1;31mdied\033[0m", 0);
 		return (1);
 	}
 	return (0);

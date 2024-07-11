@@ -42,7 +42,7 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->fork_two->lock);
 	print_status(0, philo, "has taken a fork", 1);
 	set_lvalue(&philo->lock, &philo->last_eat, timestamp_in('m'));
-	print_status(0, philo, "is eating", 1);
+	print_status(0, philo, "\033[1;32mis eating\033[0m", 1);
 	sleep_for(philo->param->time_eat);
 	pthread_mutex_unlock(&philo->fork_two->lock);
 	pthread_mutex_unlock(&philo->fork_one->lock);

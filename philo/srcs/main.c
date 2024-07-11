@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 	t_param	param;
 
 	if (ac != 5 && ac != 6)
-		return (1);
+		return (printf("\033[1;31mERROR: input must be as :\033[0m\n./philo [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep]\nor\n./philo [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep] optional [number_of_meals]\n\033[1;33m Example : ./philo 4 410 200 200    or   ./philo 4 410 200 200 8\n\033[0m"), 1);
 	param.all_ready = 0;
 	param.end = 0;
 	param.exit = 0;

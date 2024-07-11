@@ -86,7 +86,7 @@ int	init_param(int ac, char **av, t_param *param)
 {
 	if (ft_atol(av[1]) <= 0 || ft_atol(av[2]) <= 0 || ft_atol(av[3]) <= 0
 		|| ft_atol(av[4]) <= 0)
-		return (1);
+		return (printf("\033[1;31mERROR:\033[0m Invalid input\n"), 1);
 	if (ac == 6 && ft_atol(av[5]) <= 0)
 		return (1);
 	param->num_philos = ft_atol(av[1]);
