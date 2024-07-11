@@ -17,21 +17,6 @@ int	ft_isdigit(char c)
 	return (c >= '0' && c <= '9');
 }
 
-int	ft_isspace(char c)
-{
-	return ((c >= 7 && c <= 13) || c == 32);
-}
-
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s && s[i])
-		++i;
-	return (i);
-}
-
 long	ft_atol(char *str)
 {
 	long	num;
@@ -48,11 +33,10 @@ long	ft_atol(char *str)
 		++i;
 	}
 	while (ft_isdigit(str[i]))
-	{
-		num = num * 10 + str[i] - '0';
-		++i;
-	}
-	if (num > INT_MAX || num < 0)
+		num = num * 10 + str[i++] - '0';
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] || num > INT_MAX)
 		return (-1);
 	return (num);
 }
@@ -65,9 +49,9 @@ int	philo_died(t_philo *philo)
 		return (0);
 	time_passed = timestamp_in('m') - get_lvalue(&philo->lock,
 			&philo->last_eat);
-	if (time_passed >= philo->param->time_die)
+	if (time_passed > philo->param->time_die)
 	{
-		print_status(0, philo, "\033[1;31mis died\033[0m", 0);
+		print_status(0, philo, "died", 0);
 		return (1);
 	}
 	return (0);

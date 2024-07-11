@@ -18,7 +18,7 @@ void	*one_philo(t_philo *philo)
 	print_status(0, philo, "has taken a fork", 1);
 	sleep_for(philo->param->time_die);
 	pthread_mutex_unlock(&philo->fork_one->lock);
-	print_status(0, philo, "\033[1;31mis died\033[0m", 0);
+	print_status(0, philo, "\033[1;31mdied\033[0m", 0);
 	return (NULL);
 }
 
@@ -32,7 +32,7 @@ int	main(int ac, char **av)
 	param.end = 0;
 	param.exit = 0;
 	if (init_param(ac, av, &param))
-		return (1);
+		return (0);
 	init_philos(&param);
 	free(param.fork);
 	free(param.philo);

@@ -98,12 +98,12 @@ int	init_param(int ac, char **av, t_param *param)
 		param->limit_meals = ft_atol(av[5]);
 	if (pthread_mutex_init(&param->lock, NULL)
 		|| pthread_mutex_init(&param->print_lock, NULL))
-		return (printf("mutex init error\n"), 1);
+		return (printf("Error: mutex init\n"), 1);
 	param->philo = (t_philo *)malloc((param->num_philos) * sizeof(t_philo));
 	if (!param->philo)
-		return (printf("Error allocating philos"), 1);
+		return (printf("Error: allocating philos"), 1);
 	param->fork = (t_fork *)malloc((param->num_philos) * sizeof(t_fork));
 	if (!param->fork)
-		return (printf("Erro allocating forks\n"), free(param->philo), 1);
+		return (printf("Error: allocating forks\n"), free(param->philo), 1);
 	return (0);
 }

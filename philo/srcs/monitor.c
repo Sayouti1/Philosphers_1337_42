@@ -28,7 +28,6 @@ void	*ft_monitor(void *arg)
 	i = 0;
 	while (get_value(&param->lock, &param->end) == 0)
 	{
-		usleep(1000);
 		i = 0;
 		while (i < j)
 		{
@@ -36,6 +35,7 @@ void	*ft_monitor(void *arg)
 				return (NULL);
 			usleep(100);
 		}
+		usleep(1000);
 	}
 	return (NULL);
 }
